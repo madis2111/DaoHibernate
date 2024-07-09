@@ -1,22 +1,22 @@
 package myproject.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.util.Objects;
 
 @Entity
+@IdClass(CompositeKey.class)
 @Table(name="people")
 public class Person {
 
+
     @Id
-    private int id;
     @Column(name = "name")
     private String name;
+    @Id
     @Column(name = "surename")
     private String surname;
+    @Id
     @Column(name = "age")
     private int age;
     @Column(name = "phone_number")
@@ -26,9 +26,6 @@ public class Person {
 
     public Person() {}
 
-    public int getId() {
-        return id;
-    }
 
     public String getName() {
         return name;
@@ -50,9 +47,6 @@ public class Person {
         return city;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public void setName(String name) {
         this.name = name;
@@ -79,11 +73,11 @@ public class Person {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Person person = (Person) o;
-        return id == person.id && age == person.age && Objects.equals(name, person.name) && Objects.equals(surname, person.surname) && Objects.equals(phoneNumber, person.phoneNumber) && Objects.equals(city, person.city);
+        return age == person.age && Objects.equals(name, person.name) && Objects.equals(surname, person.surname) && Objects.equals(phoneNumber, person.phoneNumber) && Objects.equals(city, person.city);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, surname, age, phoneNumber, city);
+        return Objects.hash(name, surname, age, phoneNumber, city);
     }
 }
